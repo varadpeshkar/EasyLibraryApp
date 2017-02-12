@@ -2,11 +2,23 @@
           package="com.easylibrary.android">
 
     <application
+        android:name=".app.ELApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/ELTheme">
+
+        <activity android:name=".features.authentication.EnterURLActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".features.authentication.LoginActivity"/>
+
+        <activity android:name=".features.dashboard.DashboardActivity"/>
 
     </application>
 

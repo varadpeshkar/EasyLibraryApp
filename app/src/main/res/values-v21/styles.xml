@@ -1,17 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Main App Theme -->
     <style name="ELTheme" parent="ELTheme.Base">
-
-    </style>
-
-    <!-- Base Theme for App -->
-    <style name="ELTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeBackground">@color/colorPrimaryDark</item>
         <item name="actionModeSplitBackground">@color/colorPrimaryDark</item>
@@ -24,14 +17,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Base Theme for App -->
+    <style name="ELTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="ELTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textStyle">normal</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
+
     <style name="ELTheme.Detail" parent="ELTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
-
 </resources>
