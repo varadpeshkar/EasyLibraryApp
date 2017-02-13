@@ -5,4 +5,8 @@ package com.easylibrary.android.utils;
  */
 
 public class ELUtility {
+
+    public static String getFormattedLocation(String section, String shelf, int row, int column) {
+        return section + "/" + shelf + "/" + row + "/" + column;
+    }
 }

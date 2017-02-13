@@ -20,6 +20,18 @@
 
         <activity android:name=".features.dashboard.DashboardActivity"/>
 
+        <activity
+            android:name=".features.books.AllBooksActivity"
+            android:parentActivityName=".features.dashboard.DashboardActivity"/>
+
+        <activity
+            android:name=".features.books.SearchBookActivity"
+            android:parentActivityName=".features.dashboard.DashboardActivity"/>
+
+        <activity
+            android:name=".features.books.BooksByCategoryActivity"
+            android:parentActivityName=".features.books.AllBooksActivity"/>
+
     </application>
 
 </manifest>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="210dp"
+             android:background="@color/windowBackground"
+             android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imv_user_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_user_icon"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imv_user_logo"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Rohan Peshkar"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            />
+
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -8,4 +8,6 @@
     <color name="colorWhiteText">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="colorGreen">#27ae60</color>
+    <color name="colorRed">#e74c3c</color>
 </resources>
