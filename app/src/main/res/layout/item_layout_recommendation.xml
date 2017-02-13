@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/windowBackground"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txt_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/txt_expiry_date"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Some Book Name"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <TextView
+        android:id="@+id/txt_expiry_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/btn_renew"
+        android:text="Subject"/>
+
+    <Button
+        android:id="@+id/btn_renew"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorGreen"
+        android:text="View"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhiteText"/>
+
+
+</RelativeLayout>
