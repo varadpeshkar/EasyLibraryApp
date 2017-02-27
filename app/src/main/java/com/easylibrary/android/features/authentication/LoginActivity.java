@@ -3,11 +3,16 @@ package com.easylibrary.android.features.authentication;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 
 import com.easylibrary.android.R;
+import com.easylibrary.android.api.models.Auth;
+import com.easylibrary.android.api.network.AuthManager;
 import com.easylibrary.android.features.base.ELBaseActivity;
 import com.easylibrary.android.features.dashboard.DashboardActivity;
+import com.easylibrary.android.utils.ELPreferences;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
@@ -17,6 +22,13 @@ import butterknife.OnClick;
 public class LoginActivity extends ELBaseActivity {
 
 
+    @Bind(R.id.edt_roll_number)
+    EditText edtEmail;
+
+    @Bind(R.id.edt_password)
+    EditText edtPassword;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +36,46 @@ public class LoginActivity extends ELBaseActivity {
 
     @OnClick(R.id.btn_login)
     void onClickLogin() {
-        start(DashboardActivity.class);
+        String email = edtEmail.getText().toString();
+        String password = edtPassword.getText().toString();
+
+        if (email.length() == 0) {
+            edtEmail.setError("Enter valid email");
+            return;
+        }
+
+        if (password.length() == 0) {
+            edtPassword.setError("Password required");
+            return;
+        }
+        AuthManager.getInstance().addEmail(email);
+        AuthManager.getInstance().loginUser(email, password)
+                .doOnSubscribe(() -> showProgress("Authenticating..."))
+                .doOnCompleted(this::dismissProgress)
+                .doOnTerminate(this::dismissProgress)
+                .subscribe(this::handleAuthSuccess, this::handleAuthFailure);
+
+    }
+
+
+    private void handleAuthSuccess(Auth auth) {
+        if (auth != null) {
+            if (auth.isSuccess()) {
+                AuthManager.getInstance().addAuthentication(auth);
+                ELPreferences.get(this).saveBoolean(ELPreferences.Keys.IS_LOGGED_IN, true);
+                start(DashboardActivity.class);
+                finish();
+            } else {
+                showToast("Invalid email or password");
+            }
+        } else {
+            showToast("Login Failed, Retry");
+        }
+
+    }
+
+    private void handleAuthFailure(Throwable throwable) {
+        showToast("Invalid email or password");
     }
 
     @Override
