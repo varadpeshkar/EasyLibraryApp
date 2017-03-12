@@ -37,7 +37,7 @@
         android:textSize="16sp"/>
 
 
-    <EditText
+    <com.easylibrary.android.utils.PrefixEditText
         android:id="@+id/edt_enter_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:hint="Server URL"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:tag="http://"/>
 
     <Button
         android:id="@+id/btn_submit"

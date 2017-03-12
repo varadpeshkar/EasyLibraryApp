@@ -10,6 +10,19 @@ import com.easylibrary.android.db.ELRealm;
 
 public class ELApplication extends Application {
 
+    private static ELApplication instance;
+
+    public ELApplication() {
+        instance = this;
+    }
+
+    public static ELApplication getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException();
+        }
+        return instance;
+    }
+    
     @Override
     public void onCreate() {
         super.onCreate();
