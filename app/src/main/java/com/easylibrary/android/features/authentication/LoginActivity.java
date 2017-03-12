@@ -11,7 +11,7 @@ import com.easylibrary.android.features.dashboard.DashboardActivity;
 import butterknife.OnClick;
 
 /**
- * Created by rohan on 12/2/17.
+ * Created by varad on 12/2/17.
  */
 
 public class LoginActivity extends ELBaseActivity {

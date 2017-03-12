@@ -24,7 +24,7 @@
             android:layout_below="@+id/imv_user_logo"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Rohan Peshkar"
+            android:text="Varad Peshkar"
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             />

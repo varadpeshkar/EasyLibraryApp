@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * Created by rohan on 12/2/17.
+ * Created by varad on 12/2/17.
  */
 
 public class DashboardActivity extends ELBaseActivity {
@@ -63,28 +63,6 @@ public class DashboardActivity extends ELBaseActivity {
             }
 
             return true;
-        });
-
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
         });
     }
 

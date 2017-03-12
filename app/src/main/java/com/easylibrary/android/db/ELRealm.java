@@ -6,7 +6,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
- * Created by rohan on 14/2/17.
+ * Created by varad on 14/2/17.
  */
 
 public class ELRealm {

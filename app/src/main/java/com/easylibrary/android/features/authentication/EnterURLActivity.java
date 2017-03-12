@@ -10,7 +10,7 @@ import com.easylibrary.android.features.base.ELBaseActivity;
 import butterknife.OnClick;
 
 /**
- * Created by rohan on 12/2/17.
+ * Created by varad on 12/2/17.
  */
 
 public class EnterURLActivity extends ELBaseActivity {

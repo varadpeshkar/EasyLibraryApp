@@ -21,7 +21,7 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
 /**
- * Created by rohan on 14/2/17.
+ * Created by varad on 14/2/17.
  */
 
 public class BookListAdapter extends RealmRecyclerViewAdapter<Book, BookListAdapter.BookViewHolder> {

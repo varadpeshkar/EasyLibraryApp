@@ -8,7 +8,7 @@ import com.easylibrary.android.R;
 import com.easylibrary.android.features.base.ELBaseActivity;
 
 /**
- * Created by rohan on 14/2/17.
+ * Created by varad on 14/2/17.
  */
 
 public class AllBooksActivity extends ELBaseActivity {
