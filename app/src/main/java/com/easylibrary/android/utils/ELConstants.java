@@ -5,4 +5,6 @@ package com.easylibrary.android.utils;
  */
 
 public class ELConstants {
+
+    public static final String LOG_TAG = "EasyLibrary";
 }

@@ -1,12 +1,15 @@
 package com.easylibrary.android.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by rohan on 14/2/17.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Book extends RealmObject {
 
     @PrimaryKey
@@ -20,8 +23,10 @@ public class Book extends RealmObject {
 
     private String publisher;
 
+    @JsonProperty("department")
     private String category;
 
+    @JsonProperty("location")
     private BookLocation bookLocation;
 
     public int getId() {
