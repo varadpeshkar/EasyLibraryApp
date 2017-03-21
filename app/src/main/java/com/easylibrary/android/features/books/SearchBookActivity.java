@@ -12,15 +12,13 @@ import android.widget.TextView;
 
 import com.easylibrary.android.R;
 import com.easylibrary.android.api.models.Book;
-import com.easylibrary.android.api.network.BooksManager;
-import com.easylibrary.android.db.BookStorage;
+import com.easylibrary.android.api.network.managers.BooksManager;
 import com.easylibrary.android.features.base.ELBaseActivity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import rx.Observable;
 
 /**
  * Created by rohan on 14/2/17.
@@ -37,7 +35,9 @@ public class SearchBookActivity extends ELBaseActivity {
     @Bind(R.id.txt_error_books)
     TextView txtErrorBooks;
 
-    BookListAdapter mBookListAdapter;
+    private OnlineBooksListAdapter mOnlineBooksListAdapter;
+
+    private ArrayList<Book> mBooks;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,25 +62,15 @@ public class SearchBookActivity extends ELBaseActivity {
         BooksManager.getInstance().searchBooks(query).doOnSubscribe(() -> showProgress("Searching..."))
                 .doOnCompleted(this::dismissProgress)
                 .doOnTerminate(this::dismissProgress)
-                .flatMap(this::saveBooksToDb)
                 .subscribe(this::handleBooksSuccess, this::handleBooksFailure);
 
     }
 
-    private Observable<Boolean> saveBooksToDb(ArrayList<Book> books) {
-        if (books != null && books.size() > 0) {
-            for (Book book : books) {
-                BookStorage.save(book);
-            }
-            return Observable.just(true);
-        } else {
-            return Observable.just(false);
-        }
-    }
-
-    private void handleBooksSuccess(boolean isSaved) {
-        mBookListAdapter.notifyDataSetChanged();
-        if (mBookListAdapter.getItemCount() == 0) {
+    private void handleBooksSuccess(ArrayList<Book> books) {
+        mBooks.clear();
+        mBooks.addAll(books);
+        mOnlineBooksListAdapter.notifyDataSetChanged();
+        if (mOnlineBooksListAdapter.getItemCount() == 0) {
             showError("No books present");
         } else {
             hideError();
@@ -92,12 +82,13 @@ public class SearchBookActivity extends ELBaseActivity {
     }
 
     private void initRecyclerView() {
+        mBooks = new ArrayList<>();
         rvBooks.setLayoutManager(new LinearLayoutManager(this));
         rvBooks.setHasFixedSize(true);
-        mBookListAdapter = new BookListAdapter(this, BookStorage.getAll(), true);
-        rvBooks.setAdapter(mBookListAdapter);
-        if (mBookListAdapter.getItemCount() == 0) {
-            showError("No books present");
+        mOnlineBooksListAdapter = new OnlineBooksListAdapter(mBooks, this);
+        rvBooks.setAdapter(mOnlineBooksListAdapter);
+        if (mOnlineBooksListAdapter.getItemCount() == 0) {
+            showError("Enter Search Query");
         } else {
             hideError();
         }
@@ -111,28 +102,6 @@ public class SearchBookActivity extends ELBaseActivity {
     private void hideError() {
         txtErrorBooks.setVisibility(View.GONE);
     }
-
-    /*private void addDummyData() {
-        for (int i = 0; i < 10; i++) {
-            Book book = new Book();
-            book.setId(i + 1);
-            book.setName("Book name " + i + 1);
-            book.setAuthor("Author " + i + 1);
-            book.setIsbn("ISBN " + i + 1);
-
-            BookLocation bookLocation = new BookLocation();
-            bookLocation.setId(i + 1);
-            bookLocation.setCurrentCount(i);
-            bookLocation.setSection("SECT" + i);
-            bookLocation.setShelf("A" + i);
-            bookLocation.setRow(i + 1);
-            bookLocation.setColumn(i + 2);
-
-            book.setBookLocation(bookLocation);
-
-            BookStorage.save(book);
-        }
-    }*/
 
     @Override
     protected Activity getActivity() {

@@ -1,8 +1,10 @@
-package com.easylibrary.android.api.network;
+package com.easylibrary.android.api.network.managers;
 
 import com.easylibrary.android.api.models.Auth;
 import com.easylibrary.android.api.models.GenericResponse;
 import com.easylibrary.android.api.models.UserCredentials;
+import com.easylibrary.android.api.network.ELRetrofit;
+import com.easylibrary.android.api.network.services.AuthAPIService;
 import com.easylibrary.android.app.ELApplication;
 import com.easylibrary.android.utils.ELPreferences;
 

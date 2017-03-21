@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/windowBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/rel_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/imv_user_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_user_icon"
+            />
+
+        <TextView
+            android:id="@+id/txt_student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imv_user_logo"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Rohan Peshkar"
+            android:textColor="@color/colorWhiteText"
+            android:textSize="18sp"
+            />
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/txt_current_year_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_header"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Current Year"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txt_current_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_current_year_label"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="S.E"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txt_branch_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_current_year"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Branch"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txt_branch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_branch_label"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="Computer Engineering"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txt_mobile_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_branch"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Mobile Number"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txt_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_mobile_label"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:maxLength="10"
+        android:text="9977665500"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/txt_email_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_mobile"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Email"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_email_label"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="rohan@tes.com"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

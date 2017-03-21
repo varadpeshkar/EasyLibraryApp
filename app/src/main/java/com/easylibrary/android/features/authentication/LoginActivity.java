@@ -7,13 +7,17 @@ import android.widget.EditText;
 
 import com.easylibrary.android.R;
 import com.easylibrary.android.api.models.Auth;
-import com.easylibrary.android.api.network.AuthManager;
+import com.easylibrary.android.api.models.Student;
+import com.easylibrary.android.api.network.managers.AuthManager;
+import com.easylibrary.android.api.network.managers.StudentManager;
+import com.easylibrary.android.db.StudentStorage;
 import com.easylibrary.android.features.base.ELBaseActivity;
 import com.easylibrary.android.features.dashboard.DashboardActivity;
 import com.easylibrary.android.utils.ELPreferences;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.Observable;
 
 /**
  * Created by rohan on 12/2/17.
@@ -53,25 +57,22 @@ public class LoginActivity extends ELBaseActivity {
                 .doOnSubscribe(() -> showProgress("Authenticating..."))
                 .doOnCompleted(this::dismissProgress)
                 .doOnTerminate(this::dismissProgress)
-                .subscribe(this::handleAuthSuccess, this::handleAuthFailure);
+                .flatMap(this::handleAuthSuccess)
+                .onErrorResumeNext(Observable::error)
+                .subscribe(this::handleProfileSuccess, this::handleAuthFailure);
 
     }
 
+    private void handleProfileSuccess(Student student) {
+        StudentStorage.save(student);
+        ELPreferences.get(this).saveBoolean(ELPreferences.Keys.IS_LOGGED_IN, true);
+        start(DashboardActivity.class);
+        finish();
+    }
 
-    private void handleAuthSuccess(Auth auth) {
-        if (auth != null) {
-            if (auth.isSuccess()) {
-                AuthManager.getInstance().addAuthentication(auth);
-                ELPreferences.get(this).saveBoolean(ELPreferences.Keys.IS_LOGGED_IN, true);
-                start(DashboardActivity.class);
-                finish();
-            } else {
-                showToast("Invalid email or password");
-            }
-        } else {
-            showToast("Login Failed, Retry");
-        }
-
+    private Observable<Student> handleAuthSuccess(Auth auth) {
+        AuthManager.getInstance().addAuthentication(auth);
+        return StudentManager.getInstance().getProfile();
     }
 
     private void handleAuthFailure(Throwable throwable) {

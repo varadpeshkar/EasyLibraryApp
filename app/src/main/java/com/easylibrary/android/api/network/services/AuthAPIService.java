@@ -1,4 +1,4 @@
-package com.easylibrary.android.api.network;
+package com.easylibrary.android.api.network.services;
 
 import com.easylibrary.android.api.models.Auth;
 import com.easylibrary.android.api.models.GenericResponse;
