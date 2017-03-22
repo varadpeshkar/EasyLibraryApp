@@ -51,7 +51,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cav_my_books"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="500dp"
             android:layout_below="@+id/btn_search"
             android:layout_margin="10dp"
             app:cardCornerRadius="2dp"
@@ -74,9 +74,19 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rev_my_books"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="500dp"
                     android:layout_below="@+id/txt_label_my_books"
                     tools:listitem="@layout/item_layout_my_book"/>
+
+                <TextView
+                    android:id="@+id/txt_error_books"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="No books yet"
+                    android:textColor="@color/colorRed"
+                    android:visibility="invisible"/>
 
                 <!--<View
                     android:layout_width="match_parent"
@@ -96,6 +106,7 @@
             android:layout_height="200dp"
             android:layout_below="@+id/cav_my_books"
             android:layout_margin="10dp"
+            android:visibility="gone"
             app:cardCornerRadius="2dp"
             app:cardElevation="4dp">
 

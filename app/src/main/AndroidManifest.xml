@@ -38,6 +38,10 @@
             android:name=".features.student.StudentProfileActivity"
             android:parentActivityName=".features.dashboard.DashboardActivity"/>
 
+        <activity
+            android:name=".features.pendingrequests.PendingRequestsActivity"
+            android:parentActivityName=".features.dashboard.DashboardActivity"/>
+
     </application>
 
 </manifest>

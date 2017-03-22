@@ -7,13 +7,17 @@ import android.widget.EditText;
 
 import com.easylibrary.android.R;
 import com.easylibrary.android.api.models.Auth;
+import com.easylibrary.android.api.models.BookIssueRequest;
 import com.easylibrary.android.api.models.Student;
 import com.easylibrary.android.api.network.managers.AuthManager;
 import com.easylibrary.android.api.network.managers.StudentManager;
+import com.easylibrary.android.db.BookIssueRequestStorage;
 import com.easylibrary.android.db.StudentStorage;
 import com.easylibrary.android.features.base.ELBaseActivity;
 import com.easylibrary.android.features.dashboard.DashboardActivity;
 import com.easylibrary.android.utils.ELPreferences;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -58,16 +62,22 @@ public class LoginActivity extends ELBaseActivity {
                 .doOnCompleted(this::dismissProgress)
                 .doOnTerminate(this::dismissProgress)
                 .flatMap(this::handleAuthSuccess)
+                .flatMap(this::handleProfileSuccess)
                 .onErrorResumeNext(Observable::error)
-                .subscribe(this::handleProfileSuccess, this::handleAuthFailure);
+                .subscribe(this::handleIssueRequestSuccess, this::handleAuthFailure);
 
     }
 
-    private void handleProfileSuccess(Student student) {
-        StudentStorage.save(student);
+    private void handleIssueRequestSuccess(ArrayList<BookIssueRequest> bookIssueRequests) {
+        BookIssueRequestStorage.save(bookIssueRequests);
         ELPreferences.get(this).saveBoolean(ELPreferences.Keys.IS_LOGGED_IN, true);
         start(DashboardActivity.class);
         finish();
+    }
+
+    private Observable<ArrayList<BookIssueRequest>> handleProfileSuccess(Student student) {
+        StudentStorage.save(student);
+        return StudentManager.getInstance().getAllIssueRequests();
     }
 
     private Observable<Student> handleAuthSuccess(Auth auth) {
