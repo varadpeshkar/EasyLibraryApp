@@ -1,7 +1,10 @@
-package com.easylibrary.android.api.network;
+package com.easylibrary.android.api.network.managers;
 
 import com.easylibrary.android.api.models.Auth;
+import com.easylibrary.android.api.models.GenericResponse;
 import com.easylibrary.android.api.models.UserCredentials;
+import com.easylibrary.android.api.network.ELRetrofit;
+import com.easylibrary.android.api.network.services.AuthAPIService;
 import com.easylibrary.android.app.ELApplication;
 import com.easylibrary.android.utils.ELPreferences;
 
@@ -39,6 +42,13 @@ public class AuthManager {
         userCredentials.setEmail(email);
         userCredentials.setPassword(password);
         return mAuthAPIService.getAuthToken(userCredentials)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<GenericResponse> getStatus() {
+        mAuthAPIService = ELRetrofit.getInstance().createServiceWithoutRoot(AuthAPIService.class);
+        return mAuthAPIService.getStatus()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }

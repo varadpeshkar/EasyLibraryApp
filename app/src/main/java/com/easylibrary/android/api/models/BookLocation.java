@@ -1,16 +1,22 @@
 package com.easylibrary.android.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by varad on 14/2/17.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BookLocation extends RealmObject {
 
     @PrimaryKey
     private int id;
+
+    @JsonProperty("book_id")
+    private int bookId;
 
     private String section;
 
@@ -18,8 +24,10 @@ public class BookLocation extends RealmObject {
 
     private int row;
 
+    @JsonProperty("column1")
     private int column;
 
+    @JsonProperty("current_count")
     private int currentCount;
 
     public int getId() {
@@ -68,5 +76,13 @@ public class BookLocation extends RealmObject {
 
     public void setCurrentCount(int currentCount) {
         this.currentCount = currentCount;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 }

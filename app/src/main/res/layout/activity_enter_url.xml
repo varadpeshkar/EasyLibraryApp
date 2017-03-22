@@ -36,31 +36,48 @@
         android:textColor="@color/colorAccent"
         android:textSize="16sp"/>
 
+    <ProgressBar
+        android:id="@+id/pb_connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_subtitle_easy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"/>
 
-    <com.easylibrary.android.utils.PrefixEditText
-        android:id="@+id/edt_enter_url"
+    <RelativeLayout
+        android:id="@+id/rel_enter_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_subtitle_easy"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:tag="http://"/>
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@+id/edt_enter_url"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorAccent"
-        android:elevation="5dp"
-        android:text="Submit"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhiteText"
-        android:textSize="18sp"/>
+
+        <com.easylibrary.android.utils.PrefixEditText
+            android:id="@+id/edt_enter_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:inputType="text"
+            android:tag="http://"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/edt_enter_url"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorAccent"
+            android:elevation="5dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhiteText"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

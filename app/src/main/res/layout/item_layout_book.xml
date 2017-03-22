@@ -78,6 +78,34 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/txt_label_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_label_location"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Department : "
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_label_location"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/btn_issue"
+            android:layout_toRightOf="@+id/txt_label_department"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Computer Engineering"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"/>
+
+        <TextView
             android:id="@+id/txt_availability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,6 +126,7 @@
             android:id="@+id/btn_issue"
             android:layout_width="60dp"
             android:layout_height="25dp"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/txt_availability"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"

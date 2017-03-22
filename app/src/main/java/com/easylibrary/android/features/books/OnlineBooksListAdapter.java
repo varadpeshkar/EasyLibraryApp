@@ -1,8 +1,6 @@
 package com.easylibrary.android.features.books;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,21 +13,23 @@ import com.easylibrary.android.R;
 import com.easylibrary.android.api.models.Book;
 import com.easylibrary.android.utils.ELUtility;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import io.realm.OrderedRealmCollection;
-import io.realm.RealmRecyclerViewAdapter;
 
 /**
- * Created by varad on 14/2/17.
+ * Created by rohan on 21/3/17.
  */
 
-public class BookListAdapter extends RealmRecyclerViewAdapter<Book, BookListAdapter.BookViewHolder> {
+public class OnlineBooksListAdapter extends RecyclerView.Adapter<OnlineBooksListAdapter.BookViewHolder> {
+
+    private ArrayList<Book> mBooks;
 
     private Context mContext;
 
-    public BookListAdapter(@NonNull Context context, @Nullable OrderedRealmCollection<Book> data, boolean autoUpdate) {
-        super(context, data, autoUpdate);
+    public OnlineBooksListAdapter(ArrayList<Book> books, Context context) {
+        mBooks = books;
         mContext = context;
     }
 
@@ -63,7 +63,15 @@ public class BookListAdapter extends RealmRecyclerViewAdapter<Book, BookListAdap
         holder.txtLocation.setText(ELUtility.getFormattedLocation(book.getBookLocation()
                         .getSection(), book.getBookLocation().getShelf(),
                 book.getBookLocation().getRow(), book.getBookLocation().getRow()));
+    }
 
+    @Override
+    public int getItemCount() {
+        return mBooks.size();
+    }
+
+    public Book getItem(int position) {
+        return mBooks.get(position);
     }
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {
