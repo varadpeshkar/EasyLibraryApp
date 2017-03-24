@@ -1,6 +1,8 @@
 package com.easylibrary.android.features.pendingrequests;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,23 +15,23 @@ import com.easylibrary.android.api.models.Book;
 import com.easylibrary.android.api.models.BookIssueRequest;
 import com.easylibrary.android.utils.ELUtility;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
 /**
  * Created by rohan on 22/3/17.
  */
 
-public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAdapter.RequestViewHolder> {
+public class PendingRequestAdapter extends RealmRecyclerViewAdapter<BookIssueRequest, PendingRequestAdapter.RequestViewHolder> {
 
-    private ArrayList<BookIssueRequest> mBookIssueRequests;
 
     private Context mContext;
 
-    public PendingRequestAdapter(ArrayList<BookIssueRequest> bookIssueRequests, Context context) {
-        mBookIssueRequests = bookIssueRequests;
+    public PendingRequestAdapter(@NonNull Context context,
+                                 @Nullable OrderedRealmCollection<BookIssueRequest> data, boolean autoUpdate) {
+        super(context, data, autoUpdate);
         mContext = context;
     }
 
@@ -58,15 +60,6 @@ public class PendingRequestAdapter extends RecyclerView.Adapter<PendingRequestAd
         holder.txtLocation.setText(ELUtility.getFormattedLocation(book.getBookLocation()
                         .getSection(), book.getBookLocation().getShelf(),
                 book.getBookLocation().getRow(), book.getBookLocation().getRow()));
-    }
-
-    public BookIssueRequest getItem(int position) {
-        return mBookIssueRequests.get(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mBookIssueRequests.size();
     }
 
     public static class RequestViewHolder extends RecyclerView.ViewHolder {

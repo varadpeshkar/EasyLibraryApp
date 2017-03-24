@@ -24,20 +24,5 @@
             android:title="Profile"/>
     </group>
 
-    <group
-        android:id="@+id/grp3"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_item_pending_history"
-            android:title="History"/>
-    </group>
-
-    <group
-        android:id="@+id/grp4"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_item_logout"
-            android:title="Logout"/>
-    </group>
 
 </menu>

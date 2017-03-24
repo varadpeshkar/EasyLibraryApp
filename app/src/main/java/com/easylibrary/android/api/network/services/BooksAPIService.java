@@ -19,11 +19,13 @@ public interface BooksAPIService {
     @POST("/EasyLibrary/students/searchbook/{key}")
     Observable<ArrayList<Book>> searchBooks(@Path("key") String searchKey);
 
-
     @GET("/EasyLibrary/students/getAllDepartments/")
     Observable<ArrayList<Department>> getDepartments();
 
     @GET("/EasyLibrary/students/getBooksByDepartment/{department}")
     Observable<ArrayList<Book>> getBookByDepartment(@Path("department") String department);
+
+    @GET("/EasyLibrary/students/getRecommendations/")
+    Observable<ArrayList<Book>> getBookRecommendations();
 
 }

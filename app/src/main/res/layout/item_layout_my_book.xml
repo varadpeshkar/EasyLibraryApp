@@ -1,45 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/windowBackground"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="10dp"
     android:orientation="vertical"
-    android:padding="10dp">
+    app:cardCornerRadius="2dp"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/txt_book_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/txt_expiry_date"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:text="Some Book Name"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="16sp"/>
+        android:background="@color/windowBackground"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txt_expiry_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/btn_renew"
-        android:text="12/12/2016"/>
+        <ImageView
+            android:id="@+id/imv_book_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_book_shelf"/>
 
-    <Button
-        android:id="@+id/btn_renew"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@color/colorGreen"
-        android:gravity="center"
-        android:text="Renew"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhiteText"/>
+        <TextView
+            android:id="@+id/txt_book_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/imv_book_logo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Some Book Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_label_expiry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_book_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/imv_book_logo"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Expiry Date : "
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_expiry_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_book_name"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/txt_label_expiry"
+            android:text="12/12/2016"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_label_expiry"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="7 days left for expiry"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"/>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

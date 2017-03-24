@@ -48,100 +48,120 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhiteText"/>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cav_my_books"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="match_parent"
             android:layout_below="@+id/btn_search"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="4dp">
+            android:orientation="vertical"
+            android:weightSum="2">
 
-            <RelativeLayout
+            <android.support.v7.widget.CardView
+                android:id="@+id/cav_my_books"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorGreyBackground"
+                app:cardCornerRadius="2dp">
 
-                <TextView
-                    android:id="@+id/txt_label_my_books"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:text="My Books"
-                    android:textColor="@color/colorWhiteText"
-                    android:textSize="18sp"/>
+                    android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rev_my_books"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_below="@+id/txt_label_my_books"
-                    tools:listitem="@layout/item_layout_my_book"/>
+                    <TextView
+                        android:id="@+id/txt_label_my_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp"
+                        android:text="My Books"
+                        android:textColor="@color/colorWhiteText"
+                        android:textSize="18sp"/>
 
-                <TextView
-                    android:id="@+id/txt_error_books"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="No books yet"
-                    android:textColor="@color/colorRed"
-                    android:visibility="invisible"/>
+                    <ImageView
+                        android:id="@+id/imv_action_refresh"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_action_refresh"/>
 
-                <!--<View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/txt_label_my_books"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/colorDivider"/>-->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rev_my_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/txt_label_my_books"
+                        tools:listitem="@layout/item_layout_my_book"/>
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/txt_error_books"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="No books yet"
+                        android:textColor="@color/colorRed"
+                        android:visibility="invisible"/>
 
-        </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cav_my_recommendations"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@+id/cav_my_books"
-            android:layout_margin="10dp"
-            android:visibility="gone"
-            app:cardCornerRadius="2dp"
-            app:cardElevation="4dp">
+                </RelativeLayout>
 
-            <RelativeLayout
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cav_my_recommendations"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/colorGreyBackground"
+                app:cardCornerRadius="2dp">
 
-                <TextView
-                    android:id="@+id/txt_label_recommendations"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:text="Recommendations"
-                    android:textColor="@color/colorWhiteText"
-                    android:textSize="18sp"/>
+                    android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rev_recommendations"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_below="@+id/txt_label_recommendations"
-                    tools:listitem="@layout/item_layout_my_book"/>
+                    <TextView
+                        android:id="@+id/txt_label_recommendations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp"
+                        android:text="Recommendations"
+                        android:textColor="@color/colorWhiteText"
+                        android:textSize="18sp"/>
 
-                <!--<View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/txt_label_my_books"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/colorDivider"/>-->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rev_recommendations"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/txt_label_recommendations"
+                        tools:listitem="@layout/item_layout_book"/>
 
-            </RelativeLayout>
+                    <ProgressBar
+                        android:id="@+id/pb_books"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="invisible"/>
 
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/txt_error_recommendations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="No recommended books"
+                        android:textColor="@color/colorRed"
+                        android:visibility="invisible"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
 
     </RelativeLayout>

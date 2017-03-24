@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * Created by rohan on 22/3/17.
@@ -33,12 +34,18 @@ public class BookIssueRequestStorage extends ELStorage {
 
     public static RealmResults<BookIssueRequest> getAllPending() {
         return Realm.getDefaultInstance().where(BookIssueRequest.class)
-                .notEqualTo("status", "Approved").findAll();
+                .notEqualTo("status", "Approved").findAllSorted("issueDate", Sort.DESCENDING);
     }
 
     public static RealmResults<BookIssueRequest> getAllApproved() {
         return Realm.getDefaultInstance().where(BookIssueRequest.class)
-                .equalTo("status", "Approved").findAll();
+                .equalTo("status", "Approved").findAllSorted("expiryDate", Sort.ASCENDING);
+    }
+
+    public static void deleteAll() {
+        RealmResults<BookIssueRequest> bookIssueRequests =
+                Realm.getDefaultInstance().where(BookIssueRequest.class).findAll();
+        executeTransaction(realm -> bookIssueRequests.deleteAllFromRealm());
     }
 
 
