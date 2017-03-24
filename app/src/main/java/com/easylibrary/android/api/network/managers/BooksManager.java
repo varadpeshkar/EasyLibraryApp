@@ -69,4 +69,15 @@ public class BooksManager {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<ArrayList<Book>> getBookRecommendations() {
+        mBooksAPIService = ELRetrofit.getInstance()
+                .createServiceWithoutRoot(BooksAPIService.class,
+                        AuthManager.getInstance().getAuthToken(),
+                        AuthManager.getInstance().getEmail());
+
+        return mBooksAPIService.getBookRecommendations()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

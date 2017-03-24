@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by rohan on 22/3/17.
@@ -45,8 +45,6 @@ public class PendingRequestsActivity extends ELBaseActivity {
 
     private PendingRequestAdapter mPendingRequestAdapter;
 
-    ArrayList<BookIssueRequest> bookIssueRequests;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,19 +52,7 @@ public class PendingRequestsActivity extends ELBaseActivity {
         setTitle("Pending Requests");
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        loadData();
 
-    }
-
-
-    private void loadData() {
-        bookIssueRequests.clear();
-        bookIssueRequests.addAll(Realm.getDefaultInstance().copyFromRealm(BookIssueRequestStorage.getAllPending()));
-        if (bookIssueRequests.size() > 0) {
-            mPendingRequestAdapter.notifyDataSetChanged();
-        } else {
-            showError("No Pending request yet");
-        }
     }
 
     @OnClick(R.id.imv_action_refresh)
@@ -89,20 +75,38 @@ public class PendingRequestsActivity extends ELBaseActivity {
 
     private void handleSuccess(ArrayList<BookIssueRequest> bookIssueRequests) {
         hideProgressTop();
+        BookIssueRequestStorage.deleteAll();
         BookIssueRequestStorage.save(bookIssueRequests);
-        loadData();
+        mPendingRequestAdapter.notifyDataSetChanged();
     }
 
     private void handleError(Throwable throwable) {
         hideProgressTop();
-        loadData();
     }
 
     private void initRecyclerView() {
-        bookIssueRequests = new ArrayList<>();
+        RealmResults<BookIssueRequest> bookIssueRequests = BookIssueRequestStorage.getAllPending();
         rvRequests.setLayoutManager(new LinearLayoutManager(this));
-        mPendingRequestAdapter = new PendingRequestAdapter(bookIssueRequests, this);
+        mPendingRequestAdapter = new PendingRequestAdapter(this, bookIssueRequests, true);
         rvRequests.setAdapter(mPendingRequestAdapter);
+        bookIssueRequests.addChangeListener(element -> mPendingRequestAdapter.notifyDataSetChanged());
+        if (mPendingRequestAdapter.getItemCount() == 0) {
+            showError("No Pending Requests");
+        } else {
+            hideError();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mPendingRequestAdapter != null) {
+            if (mPendingRequestAdapter.getItemCount() == 0) {
+                showError("No Pending Requests");
+            } else {
+                hideError();
+            }
+        }
     }
 
     private void showProgress() {

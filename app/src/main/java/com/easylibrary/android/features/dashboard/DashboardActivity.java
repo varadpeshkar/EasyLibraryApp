@@ -11,14 +11,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.easylibrary.android.R;
+import com.easylibrary.android.api.models.Book;
 import com.easylibrary.android.api.models.BookIssueRequest;
+import com.easylibrary.android.api.network.managers.BooksManager;
+import com.easylibrary.android.api.network.managers.StudentManager;
 import com.easylibrary.android.db.BookIssueRequestStorage;
 import com.easylibrary.android.db.StudentStorage;
 import com.easylibrary.android.features.base.ELBaseActivity;
 import com.easylibrary.android.features.books.AllDepartmentsActivity;
+import com.easylibrary.android.features.books.OnlineBooksListAdapter;
 import com.easylibrary.android.features.books.SearchBookActivity;
 import com.easylibrary.android.features.pendingrequests.PendingRequestsActivity;
 import com.easylibrary.android.features.student.StudentProfileActivity;
@@ -28,7 +34,7 @@ import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by rohan on 12/2/17.
@@ -51,7 +57,25 @@ public class DashboardActivity extends ELBaseActivity {
     @Bind(R.id.txt_error_books)
     TextView txtErrorBooks;
 
+    @Bind(R.id.txt_error_recommendations)
+    TextView txtRecommendations;
+
+    @Bind(R.id.pb_books)
+    ProgressBar pbBooks;
+
+    @Bind(R.id.imv_action_refresh)
+    ImageView imvRefresh;
+
+    @Bind(R.id.rev_recommendations)
+    RecyclerView rvRecommendations;
+
     private HashMap<Integer, Intent> mNavItemMap;
+
+    private OnlineBooksListAdapter mOnlineBooksListAdapter;
+
+    private MyBooksListAdapter mMyBooksListAdapter;
+
+    private ArrayList<Book> mBooks;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,22 +83,93 @@ public class DashboardActivity extends ELBaseActivity {
         setTitle("EasyLibrary");
         setUpNavDrawer();
         initNavMap();
+        initRecommendations();
         //initRecyclerView();
     }
 
     private void initRecyclerView() {
         rvMyBooks.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<BookIssueRequest> bookIssueRequests = new ArrayList<>();
-        bookIssueRequests.addAll(Realm.getDefaultInstance()
-                .copyFromRealm(BookIssueRequestStorage.getAllApproved()));
+        RealmResults<BookIssueRequest> bookIssueRequests = BookIssueRequestStorage.getAllApproved();
         if (bookIssueRequests.size() > 0) {
-            MyBooksListAdapter myBooksListAdapter = new MyBooksListAdapter(bookIssueRequests, this);
-            rvMyBooks.setAdapter(myBooksListAdapter);
+            mMyBooksListAdapter = new MyBooksListAdapter(this, bookIssueRequests, true);
+            rvMyBooks.setAdapter(mMyBooksListAdapter);
             txtErrorBooks.setVisibility(View.INVISIBLE);
         } else {
             txtErrorBooks.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    @OnClick(R.id.imv_action_refresh)
+    void onClickRefresh() {
+        refreshAPICall();
+    }
+
+    private void refreshAPICall() {
+        showProgress("Refreshing...");
+        StudentManager.getInstance().getAllIssueRequests()
+                .subscribe(this::handleRequestSuccess, this::handleError);
+    }
+
+    private void handleRequestSuccess(ArrayList<BookIssueRequest> bookIssueRequests) {
+        dismissProgress();
+        BookIssueRequestStorage.deleteAll();
+        BookIssueRequestStorage.save(bookIssueRequests);
+        mMyBooksListAdapter.notifyDataSetChanged();
+    }
+
+    private void handleError(Throwable throwable) {
+
+    }
+
+
+    private void initRecommendations() {
+        rvRecommendations.setLayoutManager(new LinearLayoutManager(this));
+        mBooks = new ArrayList<>();
+        mOnlineBooksListAdapter = new OnlineBooksListAdapter(mBooks, this);
+        rvRecommendations.setAdapter(mOnlineBooksListAdapter);
+        makeAPICall();
+    }
+
+    private void showProgress() {
+        pbBooks.setIndeterminate(true);
+        pbBooks.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress() {
+        pbBooks.setVisibility(View.INVISIBLE);
+    }
+
+    private void showError(String errorMsg) {
+        txtRecommendations.setText(errorMsg);
+        txtRecommendations.setVisibility(View.VISIBLE);
+    }
+
+    private void hideError() {
+        txtRecommendations.setVisibility(View.INVISIBLE);
+    }
+
+    private void makeAPICall() {
+        BooksManager.getInstance().getBookRecommendations()
+                .doOnSubscribe(this::showProgress)
+                .doOnCompleted(this::hideProgress)
+                .doOnTerminate(this::hideProgress)
+                .subscribe(this::handleSuccess, this::handleFailure);
+    }
+
+    private void handleSuccess(ArrayList<Book> books) {
+        mBooks.clear();
+        mBooks.addAll(books);
+        mOnlineBooksListAdapter.notifyDataSetChanged();
+        if (books.size() > 0) {
+            hideError();
+        } else {
+            showError("No Recommendations Present");
+        }
+    }
+
+    private void handleFailure(Throwable throwable) {
+        showError(throwable.getMessage());
     }
 
     @Override

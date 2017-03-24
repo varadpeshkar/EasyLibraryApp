@@ -23,6 +23,7 @@ public class Student extends RealmObject {
 
     private String branch;
 
+    @JsonProperty("mobile_number")
     private long mobile;
 
     private String email;

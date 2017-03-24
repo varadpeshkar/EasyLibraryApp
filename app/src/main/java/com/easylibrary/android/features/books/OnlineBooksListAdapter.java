@@ -55,9 +55,17 @@ public class OnlineBooksListAdapter extends RecyclerView.Adapter<OnlineBooksList
         holder.txtDepartment.setText(book.getCategory());
         if (BookIssueRequestStorage.isBookRequested(book.getId())) {
             String status = BookIssueRequestStorage.getBookRequestStatus(book.getId());
-            holder.txtAvailability.setText("Request " + status);
-            holder.txtAvailability.setBackground(ContextCompat
-                    .getDrawable(mContext, R.drawable.rounded_corner_background_orange));
+            if ("Approved".equals(status)) {
+                holder.txtAvailability.setText("Issued");
+                holder.txtAvailability.setBackground(ContextCompat
+                        .getDrawable(mContext, R.drawable.rounded_corner_background_green));
+            } else if ("Pending".equals(status)) {
+                holder.txtAvailability.setText("Requested");
+                holder.txtAvailability.setBackground(ContextCompat
+                        .getDrawable(mContext, R.drawable.rounded_corner_background_orange));
+            }
+
+
             holder.btnIssue.setVisibility(View.GONE);
         } else {
             if (book.getBookLocation().getCurrentCount() > 0) {
