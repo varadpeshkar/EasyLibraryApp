@@ -1,10 +1,13 @@
 package com.easylibrary.android.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.easylibrary.android.R;
 import com.easylibrary.android.api.models.BookStatus;
+import com.easylibrary.android.features.authentication.EnterURLActivity;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -44,6 +47,19 @@ public class ELUtility {
             return new BookStatus(R.color.colorGreen, days + " day(s) left to expiry.");
         } else {
             return new BookStatus(R.color.colorRed, "Expired since " + Math.abs(days) + " day(s), renew or return to avoid fine");
+        }
+    }
+
+    public static void logout(Context context){
+        ELPreferences.get(context).clear();
+        try {
+            Intent intent = new Intent(context, EnterURLActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            ((Activity) context).finishAffinity();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }

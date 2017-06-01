@@ -87,12 +87,13 @@ public class EnterURLActivity extends ELBaseActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            try {
+            /*try {
                 return InetAddress.getByName(params[0]).isReachable(0);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
-            }
+            }*/
+            return  true;
         }
 
         @Override

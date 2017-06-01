@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<group
-        android:id="@+id/grp1"
-        android:checkableBehavior="single">
-        <item
-            android:icon="@drawable/ic_nav_scorecard"
-            android:id="@+id/nav_item_score_card"
-            android:title="@string/nav_label_score_card"/>
-    </group>-->
     <group
         android:id="@+id/grp2"
         android:checkableBehavior="single">
@@ -22,6 +14,13 @@
         <item
             android:id="@+id/nav_item_profile"
             android:title="Profile"/>
+    </group>
+    <group
+        android:id="@+id/grp6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_item_logout"
+            android:title="Logout"/>
     </group>
 
 

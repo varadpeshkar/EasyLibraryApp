@@ -28,6 +28,7 @@ import com.easylibrary.android.features.books.OnlineBooksListAdapter;
 import com.easylibrary.android.features.books.SearchBookActivity;
 import com.easylibrary.android.features.pendingrequests.PendingRequestsActivity;
 import com.easylibrary.android.features.student.StudentProfileActivity;
+import com.easylibrary.android.utils.ELUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +84,7 @@ public class DashboardActivity extends ELBaseActivity {
         setTitle("EasyLibrary");
         setUpNavDrawer();
         initNavMap();
-        initRecommendations();
+        //initRecommendations();
         //initRecyclerView();
     }
 
@@ -176,6 +177,7 @@ public class DashboardActivity extends ELBaseActivity {
     protected void onResume() {
         super.onResume();
         initRecyclerView();
+        initRecommendations();
     }
 
     @OnClick(R.id.btn_books)
@@ -205,6 +207,8 @@ public class DashboardActivity extends ELBaseActivity {
             }
             if (getIntentForNav(item.getItemId()) != null) {
                 startActivity(getIntentForNav(item.getItemId()));
+            }else {
+                ELUtility.logout(this);
             }
             return true;
         });
